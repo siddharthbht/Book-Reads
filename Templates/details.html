@@ -2,3 +2,13 @@
 {% block title %}
     Details
 {% endblock %}
+
+{% block body %}
+
+  {% for title in titles %}
+  <ul>
+    <li>{{details}}</li>
+  </ul>
+  {% endfor %}
+  
+{% endblock %}

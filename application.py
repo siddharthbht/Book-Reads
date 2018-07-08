@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session
+from flask import Flask, session, render_template, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -25,14 +25,10 @@ def index():
     return ("Project1")
 
 
-@app.route("/detail", methods=["POST"])
+@app.route("/detail", methods=['GET','POST'])
 def detail():
     name = request.form.get("name")
-
-
-@app.route("/details")
-def details():
-    title = db.execute("SELECT * FROM books WHERE title = :name",{"name": name}).fetchdone()
+    title = db.execute("SELECT * FROM books WHERE title = :name",{"name": name}).fetchall()
     if title is None:
         render_template("error.html", message="No book found.")
     else:
