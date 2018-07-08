@@ -22,14 +22,13 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    return ("Project1")
+    return render_template("index.html",msg="Enter here:")
 
-
-@app.route("/detail", methods=['GET','POST'])
+@app.route("/detail", methods=["GET","POST"])
 def detail():
     name = request.form.get("name")
     title = db.execute("SELECT * FROM books WHERE title = :name",{"name": name}).fetchall()
     if title is None:
-        render_template("error.html", message="No book found.")
+        return render_template("error.html", message="No book found.")
     else:
-        return render_template("details.html", details= title)
+        return render_template("details.html", details=title)
