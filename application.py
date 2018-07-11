@@ -32,3 +32,14 @@ def detail():
         return render_template("error.html", message="No book found.")
     else:
         return render_template("details.html", details=title)
+
+@app.route("/login", methods=["GET","POST"])
+def login():
+    uname = request.form.get("uname")
+    pwd = request.form.get("pwd")
+    db.execute("INSERT INTO users (uname, pwd) VALUES (:uname, :pwd)",
+            {"uname": uname, "pwd": pwd})
+    db.commit()
+    return render_template("success.html")
+    
+    
