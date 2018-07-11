@@ -28,7 +28,7 @@ def index():
 def detail():
     name = request.form.get("name")
     title = db.execute("SELECT * FROM books WHERE title = :name",{"name": name}).fetchall()
-    if title is None:
+    if title is None or name!=title:
         return render_template("error.html", message="No book found.")
     else:
         return render_template("details.html", details=title)
