@@ -6,9 +6,9 @@
  <h1> Here are the details to the book</h1>
   <ul>
   {% for title in details%}
-    <li>{{title.title}}</li>
-    <li>{{title.author}}</li>
-    <li>{{title.year}}</li>
+    <li>Title:{{title.title}}</li>
+    <li>Author:{{title.author}}</li>
+    <li>Year:{{title.year}}</li>
   {% endfor %}
   </ul>
 {% endblock %}
