@@ -24,26 +24,28 @@ db = scoped_session(sessionmaker(bind=engine))
 def index():
     return render_template("index.html",msg="Enter here:")
 
-
-@app.route('/<string:page_name>/')
-def render_static(page_name):
-    return render_template('%s.html' % page_name)
-
-
-@app.route("/detail", methods=["GET","POST"])
+@app.route("/detail", methods=["Get","POST"])
 def detail():
-    name = request.form.get("name")
-    title = db.execute("SELECT * FROM books WHERE title = :name",{"name": name}).fetchone()
+    naam = request.form.get("name")
+    title = db.execute("SELECT * FROM books WHERE title = :name",{"name": naam}).fetchone()
     if title is None:
         return render_template("error.html", message="No book found.")
     else:
         return render_template("details.html", details=title)
 
-@app.route("/register", methods=["GET","POST"])
+@app.route("/register", methods=['GET','POST'])
 def register():
-    uname = request.form.get("uname")
-    pwd = request.form.get("pwd")
-    #db.execute("INSERT INTO users (uname, pwd) VALUES (:uname, :pwd)",
-            #{"uname": uname, "pwd": pwd})
-    #db.commit()
-    return render_template("success.html",username=uname,password=pwd)
+    if request.method=="GET":
+        return render_template("register.html")
+    elif request.method=="POST":
+        uname1 = request.form.get("uname")
+        pwd1 = request.form.get("pwd")
+        
+        
+        if db.execute("SELECT uname from users WHERE uname=:uname", {"uname":uname1}).rowcount == 0:
+            db.execute("INSERT into users (uname,pwd) VALUES (:uname,:pwd)",{"uname":uname1,"pwd":pwd1})
+            db.commit()
+            return render_template("success.html")
+        else:
+            return render_template("error.html", message="Username already exist")
+        
