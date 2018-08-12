@@ -1,11 +1,19 @@
-{% block title %}
-    Success!
+{% extends "layout.html" %}
+
+{% block style %}
+    <meta http-equiv="refresh" content="{{sec}}; url={{ url_for(url) }}" />
+    <style>
+        body {
+            text-align: center;
+        }
+
+        h3 {
+            margin-top: 30px;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-    <h1>Success!</h1>
-
-    You have successfully registered.
-    <p>User:{{username}}</p>
-    <p>Pass:{{password}}</p>
+    <h3>{{mess}}</h3>
 {% endblock %}
+
