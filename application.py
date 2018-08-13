@@ -126,7 +126,7 @@ def book(book_id):
 
     # call for Goodreads api for additional reviews
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
-    params={"key": "NDxVHeRzgVMWpplzuO3BWQ", "isbns": book.isbn})
+    params={"key": "xOC5tBKWeQRF94SznYEVxg", "isbns": book.isbn})
 
     if res.status_code != 200:
         raise Exception("Error: API request unsuccessful.")
@@ -171,9 +171,12 @@ def api(isbn):
     if book is None:
         return jsonify({"error": "Invalid book isbn"}), 404
 
-    # call for Goodreads api
+    """# call for Goodreads api
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
-    params={"key": "NDxVHeRzgVMWpplzuO3BWQ", "isbns": isbn})
+    params={"key": "NDxVHeRzgVMWpplzuO3BWQ", "isbns": isbn})"""
+    res = requests.get("https://www.goodreads.com/book/review_counts.json",
+    params={"key": "xOC5tBKWeQRF94SznYEVxg", "isbns": isbn})
+    
 
     if res.status_code != 200:
         raise Exception("Error: API request unsuccessful.")
